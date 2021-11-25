@@ -12,7 +12,7 @@ const Paciente = (paciente) => {
 }
 
 Paciente.findByName = (name, result) => {
-    sql.query(`SELECT * FROM PACIENTES p WHERE p.nombre like '%${name}%'`, (err, res) => {
+    sql.query(`SELECT * FROM PACIENTES p WHERE p.nombre like '${name}%'`, (err, res) => {
         if(err){
             console.error("Error: " + err);
             result(err, null);
@@ -20,7 +20,7 @@ Paciente.findByName = (name, result) => {
         }
 
         if(res.length){
-            result(null, res[0]);
+            result(null, res);
             return;
         }
 
