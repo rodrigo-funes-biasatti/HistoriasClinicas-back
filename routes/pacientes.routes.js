@@ -3,7 +3,9 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    router.get("/:name", pacientes.findByName);
+    //Endpoints
+    router.get("/nombre/:name", pacientes.findByName);
+    router.get("/dni/:dni", pacientes.findByDNI);
 
     app.use('/api/pacientes', router);
 };

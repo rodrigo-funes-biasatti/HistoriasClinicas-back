@@ -28,4 +28,21 @@ Paciente.findByName = (name, result) => {
     })
 };
 
+Paciente.findByDNI = (dni, result) => {
+    sql.query(`SELECT * FROM PACIENTES p WHERE p.dni = '${dni}'`, (err, res) => {
+        if(err){
+            console.error("Error: " + err);
+            result(err, null);
+            return;
+        }
+
+        if(res.length){
+            result(null, res);
+            return;
+        }
+
+        result({kind: "not_found"}, null);
+    });
+}
+
 module.exports = Paciente;
