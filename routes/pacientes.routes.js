@@ -3,9 +3,12 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    //Endpoints
+    //Buscar por NOMBRE
     router.get("/nombre/:name", pacientes.findByName);
+    //Buscar por DNI
     router.get("/dni/:dni", pacientes.findByDNI);
+    //Crear PACIENTE
+    router.post("/guardar", pacientes.create);
 
     app.use('/api/pacientes', router);
 };

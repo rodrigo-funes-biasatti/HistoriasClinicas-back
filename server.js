@@ -4,17 +4,19 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "*"
 }
 
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 app.use(function(req, res, next) {
+    console.log('seteado')
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Method", "*");
    next();
   });
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
     res.json({message: "Has intentado ingresar al root de la aplicación"});
