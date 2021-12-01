@@ -1,5 +1,5 @@
-const Paciente = require('../models/paciente.model');
-const pacientes = require('../models/paciente.model');
+const Paciente = require('../models/paciente.model')
+const pacientes = require('../models/paciente.model')
 
 exports.findByName = (req, res) => {
   var nombre = req.params.name
@@ -18,7 +18,7 @@ exports.findByName = (req, res) => {
       res.send(data)
     }
   })
-};
+}
 
 exports.findByDNI = (req, res) => {
   var dni = req.params.dni
@@ -37,13 +37,13 @@ exports.findByDNI = (req, res) => {
       res.send(data)
     }
   })
-};
+}
 
 exports.create = (req, res) => {
-  if(!req.body){
+  if (!req.body) {
     res.status(400).send({
-      message: 'Error al crear el paciente: objecto vacío.'
-    });
+      message: 'Error al crear el paciente: objecto vacío.',
+    })
   }
 
   const paciente = new Paciente({
@@ -54,15 +54,35 @@ exports.create = (req, res) => {
     telefono: req.body.telefono,
     obra_social: req.body.obra_social,
     fecha_nacimiento: req.body.fecha_nacimiento,
-    sexo: req.body.sexo
-  });
+    sexo: req.body.sexo,
+  })
 
   Paciente.create(paciente, (err, data) => {
-    if(err){
+    if (err) {
       res.status(500).send({
-        message: err.message || 'Ha ocurrido un error en el servidor.'
+        message: err.message || 'Ha ocurrido un error en el servidor.',
       })
-    }
-    else res.send(data);
-  });
+    } else res.send(data)
+  })
+}
+
+exports.updateById = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({
+      message: 'Contenido del body vacío.',
+    })
+  }
+  Paciente.updateById(req.params.id, new Paciente(req.body), (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Paciente no encontrado con id: ${req.params.id}.`,
+        })
+      } else {
+        res.status(500).send({
+          message: `Error al actualizar el el Paciente con id: ${req.params.id}.`,
+        })
+      }
+    } else res.send(data)
+  })
 }

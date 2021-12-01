@@ -9,6 +9,8 @@ module.exports = app => {
     router.get("/dni/:dni", pacientes.findByDNI);
     //Crear PACIENTE
     router.post("/guardar", pacientes.create);
+    //Actualizar PACIENTE
+    router.put("/editar", pacientes.updateById);
 
     app.use('/api/pacientes', router);
 };

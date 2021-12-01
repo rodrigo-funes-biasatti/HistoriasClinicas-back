@@ -9,7 +9,6 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(function(req, res, next) {
-    console.log('seteado')
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
     res.header("Access-Control-Allow-Method", "*");
