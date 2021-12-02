@@ -1,9 +1,8 @@
 const Paciente = require('../models/paciente.model')
-const pacientes = require('../models/paciente.model')
 
 exports.findByName = (req, res) => {
   var nombre = req.params.name
-  pacientes.findByName(nombre, (err, data) => {
+  Paciente.findByName(nombre, (err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
         res.status(404).send({
@@ -22,7 +21,7 @@ exports.findByName = (req, res) => {
 
 exports.findByDNI = (req, res) => {
   var dni = req.params.dni
-  pacientes.findByDNI(dni, (err, data) => {
+  Paciente.findByDNI(dni, (err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
         res.status(404).send({
@@ -55,7 +54,7 @@ exports.create = (req, res) => {
     obra_social: req.body.obra_social,
     fecha_nacimiento: req.body.fecha_nacimiento,
     sexo: req.body.sexo,
-  })
+  })  
 
   Paciente.create(paciente, (err, data) => {
     if (err) {

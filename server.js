@@ -21,7 +21,9 @@ app.get('/', (req, res) => {
     res.json({message: "Has intentado ingresar al root de la aplicación"});
 });
 
+//Rutas
 require("./routes/pacientes.routes.js")(app);
+require("./routes/historia_clinica.routes.js")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
