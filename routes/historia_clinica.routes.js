@@ -7,6 +7,8 @@ module.exports = (app) => {
   router.get("/buscar/:id_paciente", historia_clinica.findByPaciente);
   //Obtener siguiente NRO HISTORIA CLINICA
   router.get("/next_id", historia_clinica.getNextNroHistoria);
+  //Crear una nueva HISTORIA CLINICA
+  router.post("/", historia_clinica.create);
 
   app.use('/api/historias_clinicas', router);
 }

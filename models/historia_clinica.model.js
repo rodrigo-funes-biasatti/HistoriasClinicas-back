@@ -42,4 +42,16 @@ Historia_Clinica.getNextNroHistoria = result => {
   )
 }
 
+Historia_Clinica.create = (historia, result) => {
+  sql.query("INSERT INTO HISTORIAS_CLINICAS SET = ?", historia, (err, res) => {
+    if(err){
+      console.error(err);
+      result(err, null);
+      return;
+    }
+
+    result(null, {nro_historia: res.nro_historia, ...historia});
+  });
+}
+
 module.exports = Historia_Clinica
