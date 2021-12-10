@@ -82,16 +82,16 @@ Paciente.updateById = (id, paciente, result) => {
       paciente.id
     ],
     (err, res) => {
-      if (err) {
-        console.log('Error al update: ' + err)
-        result(null, err)
-        return
-      }
+        if (err) {
+          console.log('Error al update: ' + err)
+          result(null, err)
+          return
+        }
 
-      if (res.affectedRows == 0) {
-        result({ kind: 'not_found' }, null)
-        return
-      }
+        if (res.affectedRows == 0) {
+          result({ kind: 'not_found' }, null)
+          return
+        }
 
       result(null, { id: id, ...paciente })
     },

@@ -19,6 +19,25 @@ exports.findByPaciente = (req, res) => {
   })
 }
 
+exports.findByNroHistoria = (req, res) => {
+  var nro_historia = req.params.nro_historia
+  Historia_Clinica.findByNroHistoria(nro_historia, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: 'Historia Clinica no encontrada.',
+        })
+      } else {
+        res.status(500).send({
+          message: 'Error al encontrar la Historia Clinica',
+        })
+      }
+    } else {
+      res.send(data)
+    }
+  })
+}
+
 exports.getNextNroHistoria = (req, res) => {
   Historia_Clinica.getNextNroHistoria((err, data) => {
     if (err) {
@@ -51,5 +70,30 @@ exports.create = (req, res) => {
         message: err.message || 'Ha ocurrido un error en el servidor.',
       })
     } else res.send(data)
-  });
+  })
+}
+
+exports.update = (req, res) => {
+  if (!req.body) {
+    res.status(400).send({
+      message: 'Contenido del body vacío.',
+    })
+  }
+  Historia_Clinica.update(
+    req.params.nro_historia,
+    new Historia_Clinica(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === 'not_found') {
+          res.status(404).send({
+            message: `Historia Clinica no encontrada con nro: ${req.params.nro_historia}.`,
+          })
+        } else {
+          res.status(500).send({
+            message: `Error al actualizar el el Paciente con id: ${req.params.nro_historia}.`,
+          })
+        }
+      } else res.send(data);
+    },
+  )
 }

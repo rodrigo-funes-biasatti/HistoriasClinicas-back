@@ -82,6 +82,6 @@ exports.updateById = (req, res) => {
           message: `Error al actualizar el el Paciente con id: ${req.params.id}.`,
         })
       }
-    } else res.send(data)
+    } else res.send(data);
   })
 }
