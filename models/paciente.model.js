@@ -56,7 +56,11 @@ Paciente.findByDNI = (dni, result) => {
 Paciente.create = (nuevoPaciente, result) => {
   sql.query('INSERT INTO PACIENTES SET ?', nuevoPaciente, (err, res) => {
     if (err) {
-      console.log(err)
+      console.log(err); 
+      if(err.errno === 1062){
+        result({ message: 'DNI DUPLICADO'}, null);
+        return;
+      }
       result(err, null)
       return
     }

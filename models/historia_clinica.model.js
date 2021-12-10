@@ -65,7 +65,11 @@ Historia_Clinica.getNextNroHistoria = (result) => {
 Historia_Clinica.create = (historia, result) => {
   sql.query('INSERT INTO HISTORIAS_CLINICAS SET ?', historia, (err, res) => {
     if (err) {
-      console.error(err)
+      console.error(err);
+      if(err.errno === 1062){
+        result({ message: 'NUMERO HISTORIA CLINICA DUPLICADO'}, null);
+        return;
+      }
       result(err, null)
       return
     }
